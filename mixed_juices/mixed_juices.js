@@ -1,5 +1,15 @@
-function timeToMixJuice(name) {
-    // this function returns the minutes it takes to prepare the specifeied juice
+// @ts-check
+//
+// The line above enables type checking for this file. Various IDEs interpret
+// the @ts-check directive. It will give you helpful autocompletion when
+// implementing this exercise.
+/**
+ * Determines how long it takes to prepare a certain juice.
+ *
+ * @param {string} name
+ * @returns {number} time in minutes
+ */
+ export function timeToMixJuice(name) {
     switch (name) {
         case 'Pure Strawberry Joy':
             console.log('Pure Strawberry Joy')
@@ -16,35 +26,15 @@ function timeToMixJuice(name) {
             return 2.5;
     };
 }
-
-/* function limesToCut(wedgesNeeded, limes) {
-    // function that calculates how many limes need to be cut
-    console.log(limes);
-    let current_wedges = 0;
-    let count_limes = 0;
-    let i = 0;
-    while (current_wedges < wedgesNeeded) {
-        console.log(limes[i]);
-        switch (limes[i]) {
-            case 'small':
-                current_wedges += 6;
-                count_limes += 1;
-            case 'medium':
-                current_wedges +=8;
-                count_limes += 1;
-            case 'large':
-                current_wedges +=10; 
-                count_limes += 1;
-
-            console.log(current_wedges);
-            i += 1;
-        }
-        
-    }
-    console.log(i);  
-} */
-
-function limesToCut(wedgesNeeded, limes) {
+/**
+ * Calculates the number of limes that need to be cut
+ * to reach a certain supply.
+ *
+ * @param {number} wedgesNeeded
+ * @param {string[]} limes
+ * @returns {number} number of limes cut
+ */
+export function limesToCut(wedgesNeeded, limes) {
     let current_wedges = 0;
     let current_limes = 0;
     for (let i = 0; i < limes.length; i++) {
@@ -60,11 +50,39 @@ function limesToCut(wedgesNeeded, limes) {
         } else if (limes[i] === 'large') {
             current_wedges += 10;
             current_limes += 1;
-        }
+        } 
     }
+  console.log(current_limes);
+  return current_limes;
 }
-
-//timeToMixJuice('Pure Strawberry Joy');
-limesToCut(25, ['small', 'small', 'large', 'medium', 'small'])
-
-
+/**
+ * Determines which juices still need to be prepared after the end of the shift.
+ *
+ * @param {number} timeLeft
+ * @param {string[]} orders
+ * @returns {string[]} remaining orders after the time is up
+ */
+export function remainingOrders(timeLeft, orders) {
+    // counts time that is used on each order
+    let time_used = 0;
+    let removed_element = '';
+    let type_removed_ele = '';
+    // clone input array so we can remove the completed orders from the cloned 
+    // array and return that array
+    let clone_orders = Array.from(orders);
+    for (let i = 0; i < orders.length; i++) {
+        console.log(`time_used ${time_used}`)
+        console.log(`timeLeft ${timeLeft}`)
+        if (time_used >= timeLeft) {
+            console.log(clone_orders.length)
+            return clone_orders;
+        }
+        time_used += timeToMixJuice(orders[i]);
+        removed_element = clone_orders.shift();
+        console.log(clone_orders.length)
+        if (!clone_orders.length) {
+              console.log('lol')
+              return [];
+          }
+    }
+  }
